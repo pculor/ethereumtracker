@@ -28,17 +28,15 @@ app.use((err, req, res, next) => {
   next();
 });
 
-
 app.get('/', (req, res) => {
-    handleResponse(res, OK, 'Gamma Direct Debit Service');
-  });
-  
-  app.get('*', (req, res) => {
-    res.status(404).json({
-      status: 404,
-      message: 'Invalid route!',
-    });
-  });
+  handleResponse(res, OK, 'Ethereum tracker app is up');
+});
 
+app.get('*', (req, res) => {
+  res.status(404).json({
+    status: 404,
+    message: 'Invalid route!',
+  });
+});
 
 module.exports = app;
