@@ -1,0 +1,40 @@
+{
+  "name": "ethapp-api",
+  "version": "1.0.0",
+  "description": "an ethereum app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/app.js",
+    "dev": "nodemon --exec node src/app.js",
+    "lint": "eslint --fix src/",
+    "format": ""
+  },
+  "author": "PascalUlor",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.25.2",
+    "nodemon": "^2.0.13"
+  },
+  "dependencies": {
+    "app-root-path": "^3.0.0",
+    "axios": "^0.23.0",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "helmet": "^4.6.0",
+    "jest": "^27.2.5",
+    "morgan": "^1.10.0",
+    "prettier": "^2.4.1",
+    "winston": "^3.3.3"
+  },
+  "nodemonConfig": {
+    "exec": "npm run dev",
+    "watch": [
+      "src/*"
+    ],
+    "ext": "js, json"
+  }
+}
