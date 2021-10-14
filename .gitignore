@@ -84,13 +84,4 @@ startdb.sh
 .env
 .env.test
 config/.env
-src/config/env.json
-src/config/env.local.json
-src/config/env.local.json
-src/config/env.local.json
-env.local.json
-
-migrate.sh 
-test_cypher.js
-
 dump.rdb
