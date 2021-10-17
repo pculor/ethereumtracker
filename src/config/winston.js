@@ -26,7 +26,9 @@ const logger = winston.createLogger({
     winston.format.timestamp(),
     winston.format.simple(),
     winston.format.colorize({ all: true }),
-    winston.format.printf((info) => `${info.timestamp} - ${info.level}: ${info.message}`),
+    winston.format.printf(
+      (info) => `${info.timestamp} - ${info.level}: ${info.message}`,
+    ),
   ),
   transports: [
     new winston.transports.File(options.file),

@@ -4,6 +4,7 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 const winston = require('../config/winston');
 const { handleResponse, OK } = require('../utils/success');
+const routes = require('../routes');
 
 const app = express();
 
@@ -27,6 +28,8 @@ app.use((err, req, res, next) => {
   res.render('error');
   next();
 });
+
+app.use('/', routes);
 
 app.get('/', (req, res) => {
   handleResponse(res, OK, 'Ethereum tracker app is up');
