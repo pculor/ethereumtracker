@@ -6,4 +6,7 @@ const router = Router();
 router.route('/:queryType')
   .get(WalletController.queryBlockchain);
 
+router.route('/wallet/:address')
+  .get(WalletController.getByAddress);
+
 module.exports = router;

@@ -33,7 +33,13 @@ class WalletController {
             const block = await wallet.web3.eth.getBlock('latest')
 
             if(!block){
-                winston.info('Not block found') 
+                winston.info('Not block found')
+                return next(
+                    createError({
+                      status: NOT_FOUND,
+                      message: 'No Block Found'
+                    }),
+                  );
             }
             if(!['transactions', 'blocks'].includes(queryType)){
                 return next(
@@ -83,7 +89,7 @@ class WalletController {
                 const wallet = new WalletController()
                 let trx = await wallet.web3.eth.getTransaction(ref);
                 let block = await wallet.web3.eth.getBlock(trx.blockNumber);
-                block.timestamp = new Date()
+                block.date = new Date(block.timestamp)
                 return block;
             }
             
@@ -91,6 +97,41 @@ class WalletController {
             winston.info(error)
             return error
         }
+    }
+
+    static async getByAddress (req, res, next) {
+        try {
+            const { address } = req.params;
+            console.log(address, '<<===address')
+            const wallet = new WalletController()
+            let block = await wallet.web3.eth.getBlock(address, true);
+            console.log(block, '<<===block')
+            if(!block){
+                winston.info('Not block found')
+                return next(
+                    createError({
+                      status: NOT_FOUND,
+                      message: 'No Block Found'
+                    }),
+                  );
+            }
+            block.date = new Date(block.timestamp)
+            return handleResponse(
+                res,
+                OK,
+                'Process Completed Successfully',
+                block,
+              );
+        } catch(error){
+            winston.info(error)
+            return next(
+                createError({
+                  status: SERVER_ERROR,
+                  message: `Something went wrong ${error}`,
+                }),
+              );
+        }
+        
     }
 }
 
