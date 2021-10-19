@@ -76,22 +76,45 @@ class WalletController {
 
     static async processData (payload){
         try{
-            const { ref, type } = payload;
-            if(type === 'transactions') {
+            // const { ref, type } = payload;
+            if(payload.type === 'transactions') {
                 const wallet = new WalletController()
-                let trx = await wallet.web3.eth.getTransaction(ref);
+                let trx = await wallet.web3.eth.getTransaction(payload.ref);
                 trx.value = await wallet.web3.utils.fromWei(trx.value, 'ether');
                 trx.timestamp = new Date()
                 return trx;
             }
 
-            if(type === 'blocks') {
+            if(payload.type === 'blocks') {
                 const wallet = new WalletController()
-                let trx = await wallet.web3.eth.getTransaction(ref);
+                let trx = await wallet.web3.eth.getTransaction(payload.ref);
                 let block = await wallet.web3.eth.getBlock(trx.blockNumber);
                 block.date = new Date(block.timestamp)
                 return block;
             }
+
+            let blockTrxList = [];
+            const wallet = new WalletController();
+            const block = await wallet.web3.eth.getBlock(payload.ref, true);
+
+            if(!block) return;
+
+            for(let i=0; i < block.transactions.length; i += 1){
+                let blockTrx = block.transactions[i];
+                console.log(blockTrx, '<<==blockTrx')
+                if(blockTrx.to === payload.address || blockTrx.from === payload.address) {
+                    const out = {};
+                    out['fromAddress'] = blockTrx.from;
+                    out['toAddress'] = blockTrx.to;
+                    out['amountETH'] = await wallet.web3.utils.fromWei(blockTrx.value, 'ether');
+                    // out['amountUSD'] = Math.random(blockTrx.value/(1000000000000000000 * 3440)).toFixed(2);
+                    out['timestamp'] = new Date()
+                    blockTrxList.push(out);
+                    return blockTrxList;
+                } else {
+                    continue;
+                } 
+            };
             
         } catch(error){
             winston.info(error)
@@ -102,25 +125,26 @@ class WalletController {
     static async getByAddress (req, res, next) {
         try {
             const { address } = req.params;
-            console.log(address, '<<===address')
+            const { startBlock } = req.query;
+            const blockCache = [];
+            console.log(address, '<<===address block ==>>>', startBlock)
             const wallet = new WalletController()
-            let block = await wallet.web3.eth.getBlock(address, true);
-            console.log(block, '<<===block')
-            if(!block){
-                winston.info('Not block found')
-                return next(
-                    createError({
-                      status: NOT_FOUND,
-                      message: 'No Block Found'
-                    }),
-                  );
-            }
-            block.date = new Date(block.timestamp)
+            // TODO get current block
+            const currentBlockNumber = await wallet.web3.eth.getBlockNumber();
+            // let currentBlock = await wallet.web3.eth.getBlock(currentBlockNumber);
+            console.log(currentBlockNumber, '<<== currentBlock')
+            for (let i = Number(startBlock); i < currentBlockNumber; i+=1) {
+                console.log(i, '<<== traversed block', currentBlockNumber)
+                blockCache.push(WalletController.processData({ ref: i, address }));
+            };
+
+            const response = await Promise.all(blockCache);
+            const result = response.filter(item => item !== null && item !== undefined)
             return handleResponse(
                 res,
                 OK,
                 'Process Completed Successfully',
-                block,
+                result,
               );
         } catch(error){
             winston.info(error)
