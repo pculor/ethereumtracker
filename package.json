@@ -8,9 +8,9 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node src/app.js",
-    "dev": "nodemon --exec node src/app.js",
-    "lint": "eslint --fix src/",
+    "start": "node server/app.js",
+    "dev": "nodemon --exec node server/app.js",
+    "lint": "eslint --fix server/",
     "format": "npx prettier --write ."
   },
   "author": "PascalUlor",
@@ -36,7 +36,7 @@
   "nodemonConfig": {
     "exec": "npm run dev",
     "watch": [
-      "src/*"
+      "server/*"
     ],
     "ext": "js, json"
   },
