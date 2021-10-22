@@ -5,6 +5,8 @@ import Row from './Row';
 
 const Container = styled.div`
 max-width: 900px;
+max-height: 500px;
+overflow-y: scroll;
 width: 100%;
 padding: 30px 20px;
 border: 1px solid #C3CFD9;

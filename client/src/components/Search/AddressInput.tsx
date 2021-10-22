@@ -1,18 +1,13 @@
-import React from 'react';
 import styled from "styled-components";
 import Input from '../common/Input';
 
 const StyledInput = styled(Input)`
     height: 2rem;
-    width: 10rem;
+    width: 15rem;
     border: 1px solid skyblue;
 `;
 
 
-
-const StyledDiv = styled.div`
-display: inline-block;
-`;
 
 const AddressInput =(props:any)=>{
   const { handleInputChange, search, handleKeypress } = props;

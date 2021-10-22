@@ -31,7 +31,6 @@ function App() {
   };
 
   const searchRecords = (event:any) => {
-    // event.preventDefault();
     axios
       .get(`eth/wallet/${search.address}?startBlock=${search.block}`)
       .then((res:Irecords) => {
@@ -56,11 +55,6 @@ function App() {
 
   useEffect(getRecords,[])
 
-  interface Ievent {
-    target: string;
-    value: string;
-    name: string;
-  }
 
   interface Isearch {
     block: string;

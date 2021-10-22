@@ -92,13 +92,6 @@ class WalletController {
                     out['timestamp'] = new Date()
                 return out;
                 } 
-                // else {
-                //     return {
-                //         fromAddress,
-                //         toAddress,
-                //         amountETH
-                //     }
-                // }
             }
 
             if(payload.type === 'blocks') {
@@ -109,7 +102,6 @@ class WalletController {
                 return block;
             }
 
-            let blockTrxList = [];
             const wallet = new WalletController();
             const block = await wallet.web3.eth.getBlock(payload.ref, true);
 
@@ -125,8 +117,7 @@ class WalletController {
                     out['amountETH'] = await wallet.web3.utils.fromWei(blockTrx.value, 'ether');
                     // out['amountUSD'] = Math.random(blockTrx.value/(1000000000000000000 * 3440)).toFixed(2);
                     out['timestamp'] = new Date()
-                    blockTrxList.push(out);
-                    return blockTrxList;
+                    return out;
                 } else {
                     continue;
                 } 

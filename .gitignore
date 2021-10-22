@@ -86,4 +86,5 @@ startdb.sh
 config/.env
 dump.rdb
 dump.js
+dump.json
 web3doc.js

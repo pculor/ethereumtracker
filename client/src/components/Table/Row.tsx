@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from "styled-components";
-import classNames from "classnames";
 
 const StyledRow = styled.div`
 display: flex;
@@ -10,18 +9,6 @@ width: 100%;
 padding: 12px;
 border-bottom: 1px solid #DCE1EA;
 box-sizing: border-box;
-
-
-
-.wrapper {
-	display: flex;
-	flex-direction: row;
-}
-
-`;
-
-const StyleUl = styled.ul`
-display: flex;
 `;
 
 // interface col {
@@ -49,11 +36,11 @@ interface rowData {
 const Row = (props:rowData)=>{
     const { fromAddress, toAddress, amountETH,  timestamp, width, fontSize } = props;
 return (
-    <StyledRow className="wrapper">
-        <StyledList className="column" style={{ width, fontSize }}>{fromAddress}</StyledList>
-        <StyledList className="column" style={{ width, fontSize }}>{toAddress}</StyledList>
-        <StyledList className="column" style={{ width, fontSize }}>{amountETH}</StyledList>
-        <StyledList className="column" style={{ width, fontSize }}>{timestamp}</StyledList>
+    <StyledRow>
+        <StyledList style={{ width, fontSize }}>{fromAddress}</StyledList>
+        <StyledList style={{ width, fontSize }}>{toAddress}</StyledList>
+        <StyledList style={{ width, fontSize }}>{amountETH}</StyledList>
+        <StyledList style={{ width, fontSize }}>{timestamp}</StyledList>
     </StyledRow>
 )
 };
