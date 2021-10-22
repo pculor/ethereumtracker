@@ -10,26 +10,6 @@ function App() {
     block: "",
     address: ""
   });
-  const [address, setAddress] = useState({});
-  // interface output {
-  //   data: {
-  //     [propName: string]: any;
-  //   }
-  // }
-
-  // const getBlocks = async() => {
-  //   const blockRes:output = await axios.get('eth/transactions');
-  //   const { data: {
-  //     body
-  //   } } = blockRes;
-  //   console.log(body)
-  //   setBlock(body)
-  // }
-
-  // useEffect(() => {
-  //   getBlocks();
-  // }, [])
-
 
   interface Irecords {
     [propName: string]: any;
