@@ -32,7 +32,7 @@ const Search =(props:any)=>{
             <StyledForm onSubmit={searchRecords}>
                 <AddressInput {...props}/>
                 <BlockInput {...props}/>
-            <button>Submit</button>
+            <button type="submit">Submit</button>
             </StyledForm> 
         </StyledDiv>
     )
