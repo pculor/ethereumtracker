@@ -27,13 +27,14 @@ display: inline-block;
 `;
 
 const BlockInput =(props:any)=>{
-  const { handleInputChange, search } = props;
+  const { handleInputChange, search, handleKeypress } = props;
     return(
     <StyledInput
         type="text"
         placeholder="Enter Transaction Block Number"
         value={search.block}
         onChange={handleInputChange}
+        onKeyPress={handleKeypress}
         name="block"
         />
   

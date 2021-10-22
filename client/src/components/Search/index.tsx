@@ -14,11 +14,12 @@ const StyledForm = styled.form`
   padding: 2rem;
   margin: 0 auto;
   button {
+    display: none;
     background-color: skyblue;
     border-radius: 8px;
     width: 5rem;
     height: 3rem;
-    padding: 2rem;
+    margin: 0 auto;
   }
   input {
     margin: 10px  10px 10px 6px;
@@ -26,7 +27,7 @@ const StyledForm = styled.form`
 `;
 
 const Search =(props:any)=>{
-    const { searchRecords, handleInputChange, search } = props;
+    const { searchRecords } = props;
     return (
         <StyledDiv>
             <StyledForm onSubmit={searchRecords}>

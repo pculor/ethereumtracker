@@ -15,13 +15,14 @@ display: inline-block;
 `;
 
 const AddressInput =(props:any)=>{
-  const { handleInputChange, search } = props;
+  const { handleInputChange, search, handleKeypress } = props;
     return(
               <StyledInput
               type="text"
               placeholder="Enter Transaction Address"
               value={search.address}
               onChange={handleInputChange}
+              onKeyPress={handleKeypress}
               name="address"
               />
     )

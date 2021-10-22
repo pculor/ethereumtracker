@@ -50,7 +50,8 @@ function App() {
       });
   };
 
-  const searchRecords = () => {
+  const searchRecords = (event:any) => {
+    // event.preventDefault();
     axios
       .get(`eth/wallet/${search.address}?startBlock=${search.block}`)
       .then((res:Irecords) => {
@@ -63,6 +64,12 @@ function App() {
       .catch(error => {
         return error.statusText;
       });
+  };
+
+  const handleKeypress = (e:any) => {
+    if (e.keyCode === 13) {
+      searchRecords(e)
+    }
   };
 
 
@@ -93,6 +100,7 @@ function App() {
       <Search 
       searchRecords={searchRecords}
       handleInputChange={handleInputChange}
+      onKeyPress={handleKeypress}
       search={search}
       />
       <Table trx={records}/>
