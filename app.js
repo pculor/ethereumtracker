@@ -1,6 +1,6 @@
 const http = require('http');
-const app = require('./api/server');
-const winston = require('./config/winston');
+const app = require('./server/api/server');
+const winston = require('./server/config/winston');
 
 const port = process.env.PORT || 4000;
 

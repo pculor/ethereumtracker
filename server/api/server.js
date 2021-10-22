@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
@@ -29,9 +30,11 @@ app.use((err, req, res, next) => {
   next();
 });
 
-app.use('/', routes);
+app.use('/api/v1', routes);
 
-app.get('/', (req, res) => {
+app.use(express.static(path.resolve(__dirname, '../../client/build')));
+
+app.get('/api', (req, res) => {
   handleResponse(res, OK, 'Ethereum tracker app is up');
 });
 

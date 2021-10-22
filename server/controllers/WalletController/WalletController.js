@@ -57,11 +57,12 @@ class WalletController {
                 queryList.push(WalletController.processData({ ref: blockTrx, type: queryType }));
             };
             const response = await Promise.all(queryList);
+            const result = response.filter(item => item !== null && item !== undefined && !item.level)
             return handleResponse(
                 res,
                 OK,
                 'Process Completed Successfully',
-                response,
+                result,
               );
         } catch(error){
             winston.info(error)
@@ -82,7 +83,22 @@ class WalletController {
                 let trx = await wallet.web3.eth.getTransaction(payload.ref);
                 trx.value = await wallet.web3.utils.fromWei(trx.value, 'ether');
                 trx.timestamp = new Date()
-                return trx;
+                if(trx.from && trx.to) {
+                    const out = {};
+                    out['fromAddress'] = trx.from;
+                    out['toAddress'] = trx.to;
+                    out['amountETH'] = await wallet.web3.utils.fromWei(trx.value, 'ether');
+                    // out['amountUSD'] = Math.random(blockTrx.value/(1000000000000000000 * 3440)).toFixed(2);
+                    out['timestamp'] = new Date()
+                return out;
+                } 
+                // else {
+                //     return {
+                //         fromAddress,
+                //         toAddress,
+                //         amountETH
+                //     }
+                // }
             }
 
             if(payload.type === 'blocks') {
@@ -139,7 +155,7 @@ class WalletController {
             };
 
             const response = await Promise.all(blockCache);
-            const result = response.filter(item => item !== null && item !== undefined)
+            const result = response.filter(item => item !== null && item !== undefined && !item.level)
             return handleResponse(
                 res,
                 OK,

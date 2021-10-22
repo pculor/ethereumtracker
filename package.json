@@ -8,8 +8,11 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server/app.js",
-    "dev": "nodemon --exec node server/app.js",
+    "start": "node app.js",
+    "server": "nodemon --exec node app.js",
+    "client": "cd client && npm install && npm run build",
+    "dev:client": "cd client && npm start",
+    "dev": "concurrently \"npm run server\" \"npm run dev:client\"",
     "lint": "eslint --fix server/",
     "format": "npx prettier --write ."
   },
@@ -19,16 +22,17 @@
     "eslint": "^7.32.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-import": "^2.25.2",
-    "jest": "^27.2.5",
     "nodemon": "^2.0.13",
     "prettier": "^2.4.1"
   },
   "dependencies": {
     "app-root-path": "^3.0.0",
+    "concurrently": "^6.3.0",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "helmet": "^4.6.0",
+    "jest": "^27.3.1",
     "morgan": "^1.10.0",
     "web3": "^1.6.0",
     "winston": "^3.3.3"
