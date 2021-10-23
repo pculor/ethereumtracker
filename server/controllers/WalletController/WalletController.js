@@ -77,7 +77,7 @@ class WalletController {
 
     static async processData (payload){
         try{
-            // const { ref, type } = payload;
+            let date_format = new Date().toISOString().slice(0, 19).replace('T', ' ');
             if(payload.type === 'transactions') {
                 const wallet = new WalletController()
                 let trx = await wallet.web3.eth.getTransaction(payload.ref);
@@ -89,7 +89,7 @@ class WalletController {
                     out['toAddress'] = trx.to;
                     out['amountETH'] = await wallet.web3.utils.fromWei(trx.value, 'ether');
                     // out['amountUSD'] = Math.random(blockTrx.value/(1000000000000000000 * 3440)).toFixed(2);
-                    out['timestamp'] = new Date()
+                    out['date'] = date_format;
                 return out;
                 } 
             }
@@ -116,7 +116,7 @@ class WalletController {
                     out['toAddress'] = blockTrx.to;
                     out['amountETH'] = await wallet.web3.utils.fromWei(blockTrx.value, 'ether');
                     // out['amountUSD'] = Math.random(blockTrx.value/(1000000000000000000 * 3440)).toFixed(2);
-                    out['timestamp'] = new Date()
+                    out['date'] = date_format;
                     return out;
                 } else {
                     continue;
@@ -138,9 +138,9 @@ class WalletController {
             const wallet = new WalletController()
             // TODO get current block
             const currentBlockNumber = await wallet.web3.eth.getBlockNumber();
-            // let currentBlock = await wallet.web3.eth.getBlock(currentBlockNumber);
+            let blockNumber = startBlock ? startBlock : currentBlockNumber;
             console.log(currentBlockNumber, '<<== currentBlock')
-            for (let i = Number(startBlock); i < currentBlockNumber; i+=1) {
+            for (let i = Number(blockNumber); i < currentBlockNumber; i+=1) {
                 console.log(i, '<<== traversed block', currentBlockNumber)
                 blockCache.push(WalletController.processData({ ref: i, address }));
             };

@@ -18,6 +18,11 @@ margin: 0 auto;
 }
 `;
 
+const Wrapper = styled.div`
+display: flex;
+flex-direction: column;
+`;
+
 const StyledHeader = styled.div`
 box-shadow: 0 1px 2px 0 #E9EFFA;
 text-transform: uppercase;
@@ -27,7 +32,7 @@ font-weight: bold;
 const HeaderLabels = {fromAddress:'From Address', 
                         toAddress:'To Address', 
                         amountETH:'Amount in Eth', 
-                        timestamp:'Time Stamp'};
+                        date:'Transaction Date'};
 
 const Table = (props:any) => {
     const { trx } = props;
@@ -38,7 +43,7 @@ const Table = (props:any) => {
                 fromAddress={HeaderLabels.fromAddress}
                 toAddress={HeaderLabels.toAddress}
                 amountETH={HeaderLabels.amountETH}
-                timestamp={HeaderLabels.timestamp}
+                date={HeaderLabels.date}
                 />
             </StyledHeader>
                
@@ -47,8 +52,9 @@ const Table = (props:any) => {
                 fromAddress={item.fromAddress}
                 toAddress={item.toAddress}
                 amountETH={item.amountETH}
-                timestamp={item.timestamp}
-                fontSize={8}/>)
+                date={item.date}
+                fontSize={8}
+                />)
             })}
         </Container>
     ) 
