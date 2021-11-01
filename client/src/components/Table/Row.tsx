@@ -7,8 +7,9 @@ flex-direction: row;
 flex-wrap: no-wrap;
 width: 100%;
 padding: 12px;
-border-bottom: 1px solid #DCE1EA;
+border-bottom: 1px solid #BCE1EA;
 box-sizing: border-box;
+margin: 0 auto;
 `;
 
 // interface col {
@@ -20,27 +21,37 @@ flex-grow: 0;
 flex-shrink: 0;
 vertical-align: top;
 color: #8798AB;
-margin:0 auto;
+margin:0 2rem 0 0;
 justify-content: center;
 overflow-x: hidden;
+width: 100%;
 `;
 
+
+const Wrapper = styled.div`
+display: grid;
+grid-template-columns: 20% 20% 20% 20%;
+grid-gap: 5rem;
+margin: 0 auto;
+`;
 interface rowData {
     fromAddress: string;
     toAddress: string;
     amountETH: number|string;
-    timestamp: string;
+    date: string;
     width?: number;
     fontSize?: number;
 }
 const Row = (props:rowData)=>{
-    const { fromAddress, toAddress, amountETH,  timestamp, width, fontSize } = props;
+    const { fromAddress, toAddress, amountETH,  date, width, fontSize } = props;
 return (
     <StyledRow>
-        <StyledList style={{ width, fontSize }}>{fromAddress}</StyledList>
-        <StyledList style={{ width, fontSize }}>{toAddress}</StyledList>
-        <StyledList style={{ width, fontSize }}>{amountETH}</StyledList>
-        <StyledList style={{ width, fontSize }}>{timestamp}</StyledList>
+        <Wrapper>
+            <StyledList style={{ width, fontSize }}>{fromAddress}</StyledList>
+            <StyledList style={{ width, fontSize }}>{toAddress}</StyledList>
+            <StyledList style={{ width, fontSize }}>{amountETH}</StyledList>
+            <StyledList style={{ width, fontSize }}>{date}</StyledList>
+        </Wrapper>
     </StyledRow>
 )
 };
