@@ -5,6 +5,7 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 const winston = require('../config/winston');
 const { handleResponse, OK } = require('../utils/success');
+const customErrorHandler = require('../middleware/customErrorHandler');
 const routes = require('../routes');
 
 const app = express();
@@ -45,4 +46,5 @@ app.get('*', (req, res) => {
   });
 });
 
+app.use(customErrorHandler());
 module.exports = app;

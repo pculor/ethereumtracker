@@ -120,13 +120,11 @@ const resourceConflict = (err, req, res, next) => {
  * @param {object} next
  * @return {object}
  */
-const serverError = (err, req, res, next) =>{
-  return res.status(GENERIC_ERROR).json({
-    success: false,
-    message: err.message || 'Internal server error',
-    errors: [err],
-  });
-}
+const serverError = (err, req, res, next) => res.status(GENERIC_ERROR).json({
+  success: false,
+  message: err.message || 'Internal server error',
+  errors: [err],
+});
 /**
  * Package all error handlers as object
  */
@@ -143,7 +141,6 @@ const errorsObject = {
  * Export all error middleware as an array
  *
  */
-const customErrorHandler = () =>
-  Object.keys(errorsObject).map((key) => errorsObject[key]);
+const customErrorHandler = () => Object.keys(errorsObject).map((key) => errorsObject[key]);
 
 module.exports = customErrorHandler;

@@ -11,6 +11,11 @@ React (Typescript)
 view transactions associated with the address  and block number
 [GET] `BASE_URL/api/v1/eth/wallet/:address?startBlock=blocknumber`
 
+Sample Request
+[GET] `http://localhost:4000/api/v1/eth/wallet/0xa4341fb5429246265f933C8709dd4d3BDb5B2789?startBlock=9512017`
+
+Response
+
 
 [GET] `BASE_URL/api/v1/eth/block`
 Returns block numbers
