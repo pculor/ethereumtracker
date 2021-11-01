@@ -87,7 +87,7 @@ class WalletController {
                     const out = {};
                     out['fromAddress'] = trx.from;
                     out['toAddress'] = trx.to;
-                    out['amountETH'] = await wallet.web3.utils.fromWei(trx.value, 'ether');
+                    out['amountETH'] = trx.value;
                     // out['amountUSD'] = Math.random(blockTrx.value/(1000000000000000000 * 3440)).toFixed(2);
                     out['date'] = date_format;
                 return out;
